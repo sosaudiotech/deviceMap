@@ -1,0 +1,58 @@
+<!-- public/index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Device Map Sandbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./mapStyles.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Device Map</h1>
+        <div class="controls">
+            <label>Building/Floor:</label>
+            <select id="floor-select"></select>
+
+
+            <label class="spacer"></label>
+
+
+            <label>
+                <input type="checkbox" id="admin-mode" />
+                Admin Placement Mode
+            </label>
+
+
+            <select id="orientation-filter">
+                <option value="">All orientations</option>
+                <option value="landscape">Landscape</option>
+                <option value="portrait">Portrait</option>
+            </select>
+
+
+            <input id="search" placeholder="Search device name or IP…" />
+        </div>
+    </header>
+
+
+    <main>
+        <div id="map-wrapper">
+            <div id="svg-host"></div>
+            <svg id="marker-layer" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+
+        <aside id="list">
+            <h2>Devices</h2>
+            <div id="device-list"></div>
+        </aside>
+    </main>
+
+
+    <div id="tooltip" class="tooltip" hidden></div>
+
+
+    <script type="module" src="./js/mapApp.js"></script>
+</body>
+</html>

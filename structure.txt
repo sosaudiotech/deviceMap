@@ -1,0 +1,19 @@
+device-map-sandbox/
+├─ package.json
+├─ mapServer.js			#renamed from "server.js"
+├─ db.js				
+├─ data/
+│  ├─ devices.json      # copied current live version for testing
+│  └─ floors.json       # building/floor registry + svg file paths
+├─ public/
+│  ├─ index.html
+│  └─ js/
+│     ├─ mapApp.js		#enclosed in /js and renamed "app.js"to be better drop-in for system
+│  ├─ mapStyles.css
+│  └─ svgs/			#divided by location
+	└─ Outlook/
+│     		├─ OL_2.svg
+│     		├─ OL_4.svg
+│     		└─ OL_5.svg
+│     	└─ Nall
+	    └─ NL_1.svg

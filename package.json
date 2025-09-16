@@ -1,0 +1,13 @@
+{
+  "name": "device-map-sandbox",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node mapServer.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "lowdb": "^7.0.1",
+    "ws": "^8.18.0"
+  }
+}

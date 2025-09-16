@@ -1,0 +1,170 @@
+{
+  "devices": [
+    {
+      "name": "Outlook 2nd Flr Cafe 1",
+      "ip": "10.108.17.10",
+      "serial": "M3F46J001146",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "2",
+      "area": "Cafe",
+      "location": "Main Dining Room",
+      "coords": {
+        "x": 0.4888888700508777,
+        "y": 0.969444359673394
+      }
+    },
+    {
+      "name": "Outlook 2nd Flr Cafe 2",
+      "ip": "10.108.17.11",
+      "serial": "M3F463001827",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "2",
+      "area": "Cafe",
+      "location": "Main Dining Room",
+      "coords": {
+        "x": 0.72,
+        "y": 0.45
+      }
+    },
+    {
+      "name": "Outlook 2nd Flr Cafe 3",
+      "ip": "10.108.17.9",
+      "serial": "M3F389001455",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "2",
+      "area": "Cafe",
+      "location": "Main Dining Room",
+      "coords": {
+        "x": 0.56,
+        "y": 0.28
+      }
+    },
+    {
+      "name": "Outlook 4th Flr Lobby",
+      "ip": "10.108.6.136",
+      "serial": "M3F38K001620",
+      "port": "5005",
+      "orientation": "portrait",
+      "building": "Outlook",
+      "floor": "4",
+      "area": "Lobby",
+      "location": "Outlook 4th Floor Lobby"
+    },
+    {
+      "name": "Outlook 4th Flr Cafe 1",
+      "ip": "10.108.6.132",
+      "serial": "M3F385001438",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "4",
+      "area": "Breakroom",
+      "location": "Outlook 4th Flr Cafe 1"
+    },
+    {
+      "name": "Outlook 4th Flr Cafe 2",
+      "ip": "10.108.6.135",
+      "serial": "M3F38F001226",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "4",
+      "area": "Cafe",
+      "location": "Outlook 4th Flr Cafe 2"
+    },
+    {
+      "name": "Outlook 5th Flr Lobby",
+      "ip": "10.108.16.74",
+      "serial": "M3F38N001251",
+      "port": "5005",
+      "orientation": "portrait",
+      "building": "Outlook",
+      "floor": "5",
+      "area": "Lobby",
+      "location": "Outlook 5th Floor Lobby"
+    },
+    {
+      "name": "Outlook 5th Flr Cafe 1",
+      "ip": "10.108.16.71",
+      "serial": "M3F389001219",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "5",
+      "area": "Breakroom",
+      "location": "Outlook 5th Flr Cafe 1"
+    },
+    {
+      "name": "Outlook 5th Flr Cafe 2",
+      "ip": "10.108.16.72",
+      "serial": "M3F38D001265",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Outlook",
+      "floor": "5",
+      "area": "Breakroom",
+      "location": "Outlook 5th Flr Cafe 2"
+    },
+    {
+      "name": "Nall Jetway",
+      "ip": "10.105.20.126",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Nall",
+      "floor": "1",
+      "location": "Nall Jetway",
+      "coords": {
+        "x": 0.85,
+        "y": 0
+      }
+    },
+    {
+      "name": "Nall 1st Flr Lobby",
+      "ip": "10.105.22.201",
+      "port": "5005",
+      "orientation": "landscape",
+      "building": "Nall",
+      "floor": "1",
+      "area": "Lobby",
+      "location": "Nall 1st Flr Lobby",
+      "coords": {
+        "x": 0.5,
+        "y": 0.7
+      }
+    },
+    {
+      "name": "Nall 1st Flr Elevator 1",
+      "ip": "10.105.22.182",
+      "port": "5005",
+      "orientation": "portrait",
+      "building": "Nall",
+      "floor": "1",
+      "area": "Lobby",
+      "location": "Nall 1st Flr Elevator 1",
+      "coords": {
+        "x": 0.2,
+        "y": 0.5
+      }
+    },
+    {
+      "name": "Nall 1st Flr Elevator 2",
+      "ip": "10.105.22.253",
+      "port": "5005",
+      "orientation": "portrait",
+      "building": "Nall",
+      "floor": "1",
+      "area": "Lobby",
+      "location": "Nall 1st Flr Elevator 2",
+      "coords": {
+        "x": 0.3,
+        "y": 0.5
+      }
+    }
+  ]
+}
