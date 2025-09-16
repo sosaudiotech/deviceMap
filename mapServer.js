@@ -32,22 +32,28 @@ app.get('/api/devices', async (_req, res) => {
 
 
 // Update normalized coords for a device id (id can be IP or GUID — string match)
-app.put('/api/devices/:id/coords', async (req, res) => {
-  const { x, y } = req.body || {};
-  if (!Number.isFinite(x) || !Number.isFinite(y)) {
-    return res.status(400).json({ error: 'x and y must be finite numbers in [0,1]' });
-  }
+app.put('/api/devices/:key/coords', async (req, res) => {
+    const { x, y } = req.body || {};
+    if (!Number.isFinite(x) || !Number.isFinite(y)) {
+        return res.status(400).json({ error: 'x and y must be finite numbers in [0,1]' });
+    }
 
-  const { devices } = await getDB();
-  const idx = devices.data.devices.findIndex(d => String(d.id) === String(req.params.id));
-  if (idx === -1) return res.status(404).json({ error: 'Device not found' });
+    const key = String(req.params.key);
+    const { devices } = await getDB();
+    const idx = devices.data.devices.findIndex(d =>
+        String(d?.id ?? '') === key ||
+        String(d?.ip ?? '') === key ||
+        String(d?.name ?? '') === key
+    );
+    if (idx === -1) return res.status(404).json({ error: 'Device not found: ' + key });
 
-  devices.data.devices[idx].coords = { x: clamp01(x), y: clamp01(y) };
-  await devices.write();
+    devices.data.devices[idx].coords = { x: Math.max(0, Math.min(1, x)), y: Math.max(0, Math.min(1, y)) };
+    await devices.write();
 
-  broadcast({ type: 'device.coords.updated', device: devices.data.devices[idx] });
-  res.json({ ok: true, device: devices.data.devices[idx] });
+    broadcast({ type: 'device.coords.updated', device: devices.data.devices[idx] });
+    res.json({ ok: true, device: devices.data.devices[idx] });
 });
+
 
 
 

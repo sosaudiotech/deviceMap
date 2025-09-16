@@ -128,3 +128,21 @@ aside#list {
     white-space: nowrap;
     z-index: 50;
 }
+
+.zoom-controls {
+    display: inline-flex;
+    gap: 6px;
+}
+
+    .zoom-controls button {
+        background: #0e141b;
+        color: var(--text);
+        border: 1px solid #273446;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+    }
+
+        .zoom-controls button:hover {
+            border-color: #3b4a5e;
+        }

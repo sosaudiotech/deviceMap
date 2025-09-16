@@ -11,8 +11,8 @@
       "area": "Cafe",
       "location": "Main Dining Room",
       "coords": {
-        "x": 0.4888888700508777,
-        "y": 0.969444359673394
+        "x": 0.2398662443802306,
+        "y": 0.5436548365903566
       }
     },
     {
@@ -26,8 +26,8 @@
       "area": "Cafe",
       "location": "Main Dining Room",
       "coords": {
-        "x": 0.72,
-        "y": 0.45
+        "x": 0.5234103521296183,
+        "y": 1
       }
     },
     {
@@ -41,8 +41,8 @@
       "area": "Cafe",
       "location": "Main Dining Room",
       "coords": {
-        "x": 0.56,
-        "y": 0.28
+        "x": 0.8630704480141125,
+        "y": 0.9865562396515568
       }
     },
     {
@@ -54,7 +54,11 @@
       "building": "Outlook",
       "floor": "4",
       "area": "Lobby",
-      "location": "Outlook 4th Floor Lobby"
+      "location": "Outlook 4th Floor Lobby",
+      "coords": {
+        "x": 0.7742555483706415,
+        "y": 0.7445008275633445
+      }
     },
     {
       "name": "Outlook 4th Flr Cafe 1",
@@ -65,7 +69,11 @@
       "building": "Outlook",
       "floor": "4",
       "area": "Breakroom",
-      "location": "Outlook 4th Flr Cafe 1"
+      "location": "Outlook 4th Flr Cafe 1",
+      "coords": {
+        "x": 0.046664297472331764,
+        "y": 0.9450084758180947
+      }
     },
     {
       "name": "Outlook 4th Flr Cafe 2",
@@ -76,7 +84,11 @@
       "building": "Outlook",
       "floor": "4",
       "area": "Cafe",
-      "location": "Outlook 4th Flr Cafe 2"
+      "location": "Outlook 4th Flr Cafe 2",
+      "coords": {
+        "x": 0.5494536500461183,
+        "y": 0.10794539109437044
+      }
     },
     {
       "name": "Outlook 5th Flr Lobby",
