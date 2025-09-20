@@ -11,8 +11,8 @@
       "area": "Cafe",
       "location": "Main Dining Room",
       "coords": {
-        "x": 0.2398662443802306,
-        "y": 0.5436548365903566
+        "x": 0.6284187432393886,
+        "y": 0.9169950422367689
       }
     },
     {
@@ -26,8 +26,8 @@
       "area": "Cafe",
       "location": "Main Dining Room",
       "coords": {
-        "x": 0.5234103521296183,
-        "y": 1
+        "x": 0.4747209086342815,
+        "y": 0.8070565972092286
       }
     },
     {
@@ -41,8 +41,8 @@
       "area": "Cafe",
       "location": "Main Dining Room",
       "coords": {
-        "x": 0.8630704480141125,
-        "y": 0.9865562396515568
+        "x": 0.6136571551649985,
+        "y": 0.7869332982868125
       }
     },
     {
@@ -56,8 +56,8 @@
       "area": "Lobby",
       "location": "Outlook 4th Floor Lobby",
       "coords": {
-        "x": 0.7742555483706415,
-        "y": 0.7445008275633445
+        "x": 0.7552592310709195,
+        "y": 0.6707103978129552
       }
     },
     {
@@ -86,8 +86,8 @@
       "area": "Cafe",
       "location": "Outlook 4th Flr Cafe 2",
       "coords": {
-        "x": 0.5494536500461183,
-        "y": 0.10794539109437044
+        "x": 0.7322929262431926,
+        "y": 0.05982119750690058
       }
     },
     {
@@ -99,7 +99,11 @@
       "building": "Outlook",
       "floor": "5",
       "area": "Lobby",
-      "location": "Outlook 5th Floor Lobby"
+      "location": "Outlook 5th Floor Lobby",
+      "coords": {
+        "x": 0.7257467733799875,
+        "y": 0.6172507982835895
+      }
     },
     {
       "name": "Outlook 5th Flr Cafe 1",
@@ -110,7 +114,11 @@
       "building": "Outlook",
       "floor": "5",
       "area": "Breakroom",
-      "location": "Outlook 5th Flr Cafe 1"
+      "location": "Outlook 5th Flr Cafe 1",
+      "coords": {
+        "x": 0.7335988630305682,
+        "y": 0.06755893876845964
+      }
     },
     {
       "name": "Outlook 5th Flr Cafe 2",
@@ -121,7 +129,11 @@
       "building": "Outlook",
       "floor": "5",
       "area": "Breakroom",
-      "location": "Outlook 5th Flr Cafe 2"
+      "location": "Outlook 5th Flr Cafe 2",
+      "coords": {
+        "x": 0.3135134900282705,
+        "y": 0.9185726237971851
+      }
     },
     {
       "name": "Nall Jetway",
@@ -132,8 +144,8 @@
       "floor": "1",
       "location": "Nall Jetway",
       "coords": {
-        "x": 0.85,
-        "y": 0
+        "x": 0.554952727199105,
+        "y": 0.03662948712470928
       }
     },
     {
@@ -146,8 +158,8 @@
       "area": "Lobby",
       "location": "Nall 1st Flr Lobby",
       "coords": {
-        "x": 0.5,
-        "y": 0.7
+        "x": 0.6153172953926161,
+        "y": 0.6251225186274302
       }
     },
     {
@@ -160,8 +172,8 @@
       "area": "Lobby",
       "location": "Nall 1st Flr Elevator 1",
       "coords": {
-        "x": 0.2,
-        "y": 0.5
+        "x": 0.627181832394999,
+        "y": 0.4092394307359399
       }
     },
     {
@@ -174,8 +186,8 @@
       "area": "Lobby",
       "location": "Nall 1st Flr Elevator 2",
       "coords": {
-        "x": 0.3,
-        "y": 0.5
+        "x": 0.5973591367264762,
+        "y": 0.5521873300336931
       }
     }
   ]

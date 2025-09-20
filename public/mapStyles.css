@@ -55,30 +55,47 @@ main {
 
 #map-wrapper {
     position: relative;
-    overflow: hidden;
-    background: #0e141b;
+    overflow: hidden; /* keep the viewport clean while panning/zooming */
 }
 
-#svg-host svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-#marker-layer {
+/* both layers fill the wrapper — you already have this */
+#svg-host {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    z-index: 0;
 }
+
+    #svg-host svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+/* marker overlay sits above the floor */
+#marker-layer { /* <-- update */
+    position: absolute;
+    inset: 0;
+    width: 100%; /* <-- add */
+    height: 100%; /* <-- add */
+    display: block; /* <-- add (avoids inline quirks) */
+    z-index: 1;
+}
+
+/* nice-to-have: avoid selecting labels while dragging */
+#map-wrapper, #marker-layer, #svg-host {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 
 
 aside#list {
     background: var(--panel);
+    justify-self: auto;
     border-left: 1px solid #1d2733;
     overflow: auto;
     padding: 10px;
+    
 }
 
 #device-list .card {
@@ -86,12 +103,13 @@ aside#list {
     border-radius: 12px;
     padding: 10px;
     margin-bottom: 10px;
+    
     background: #0f1620;
 }
 
 .card .meta {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 10px;
 }
 
 
@@ -105,17 +123,34 @@ aside#list {
         opacity: 0.9;
     }
 
+    /*.marker .icon {
+        fill: var(--accent);
+        opacity: 0.95;
+        stroke: rgba(255,255,255,1);
+        stroke-width: 1.2;
+        vector-effect: non-scaling-stroke;*/ /* keeps lines crisp while zooming */
+    /*}*/
+
+    .marker.dragging .icon {
+        fill: var(--warn);
+    }
+
     .marker text {
         font-size: 32px;
         fill: white;
         paint-order: stroke;
-        stroke: rgba(0,0,0,0.65);
+        stroke: #37d67a;
         stroke-width: 2;
     }
 
     .marker.dragging circle {
         fill: var(--warn);
     }
+
+
+.panning {
+    cursor: grabbing;
+}
 
 
 .tooltip {

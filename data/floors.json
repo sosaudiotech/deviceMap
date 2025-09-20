@@ -1,32 +1,37 @@
 {
   "floors": [
     {
-      "id": "OL_2",
-      "building": "Outlook",
-      "floor": "2",
-      "label": "Outlook Flr 2",
-      "svg": "/svgs/Outlook/OL_2.svg"
-    },
-    {
-      "id": "OL_4",
-      "building": "Outlook",
-      "floor": "4",
-      "label": "Outlook Flr 4",
-      "svg": "/svgs/Outlook/OL_4.svg"
-    },
-    {
-      "id": "OL_5",
-      "building": "Outlook",
-      "floor": "2",
-      "label": "Outlook Flr 5",
-      "svg": "/svgs/Outlook/OL_5.svg"
-    },
-    {
-      "id": "NL_1",
+      "id": "Nall-1",
       "building": "Nall",
       "floor": "1",
       "label": "Nall Flr 1",
-      "svg": "/svgs/Nall/NL_1.svg"
+      "svg": "/svgs/Nall/NL-1.svg"
+
+    },
+    {
+      "id": "Outlook-2",
+      "building": "Outlook",
+      "floor": "2",
+      "label": "Outlook — Floor 2",
+      "svg": "/svgs/Outlook/OL-2.svg"
+
+    },
+    {
+      "id": "Outlook-4",
+      "building": "Outlook",
+      "floor": "4",
+      "label": "Outlook — Floor 4",
+      "svg": "/svgs/Outlook/OL-4.svg"
+
+    },
+    {
+      "id": "Outlook-5",
+      "building": "Outlook",
+      "floor": "5",
+      "label": "Outlook — Floor 5",
+      "svg": "/svgs/Outlook/OL-5.svg"
+
     }
+
   ]
 }

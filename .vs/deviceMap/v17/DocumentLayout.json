@@ -1,26 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\",
+  "WorkspaceRootPath": "C:\\Users\\sosau\\source\\repos\\deviceMap\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\js\\mapApp.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\mapApp.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sosau\\source\\repos\\deviceMap\\data\\floors.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\floors.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\data\\devices.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\devices.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\mapServer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mapServer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\mapStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\mapStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\mapStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\js\\mapApp.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\mapApp.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sosau\\source\\repos\\deviceMap\\mapServer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mapServer.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\sosau\\source\\repos\\deviceMap\\data\\devices.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:data\\devices.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,72 +34,92 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "mapServer.js",
-              "DocumentMoniker": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\mapServer.js",
-              "RelativeDocumentMoniker": "mapServer.js",
-              "ToolTip": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\mapServer.js",
-              "RelativeToolTip": "mapServer.js",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABgAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-09-16T15:58:55.199Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "devices.json",
-              "DocumentMoniker": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\data\\devices.json",
-              "RelativeDocumentMoniker": "data\\devices.json",
-              "ToolTip": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\data\\devices.json",
-              "RelativeToolTip": "data\\devices.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-16T15:58:12.359Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "mapStyles.css",
-              "DocumentMoniker": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\mapStyles.css",
+              "DocumentMoniker": "C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\mapStyles.css",
               "RelativeDocumentMoniker": "public\\mapStyles.css",
-              "ToolTip": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\mapStyles.css",
+              "ToolTip": "C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\mapStyles.css",
               "RelativeToolTip": "public\\mapStyles.css",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAJQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAHwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-09-16T15:43:57.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-16T15:43:57.544Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\index.html",
+              "DocumentMoniker": "C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\index.html",
               "RelativeDocumentMoniker": "public\\index.html",
-              "ToolTip": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\index.html",
+              "ToolTip": "C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\index.html",
               "RelativeToolTip": "public\\index.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-09-16T15:42:47.015Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-16T15:42:47.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "mapApp.js",
+              "DocumentMoniker": "C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\js\\mapApp.js",
+              "RelativeDocumentMoniker": "public\\js\\mapApp.js",
+              "ToolTip": "C:\\Users\\sosau\\source\\repos\\deviceMap\\public\\js\\mapApp.js",
+              "RelativeToolTip": "public\\js\\mapApp.js",
+              "ViewState": "AgIAAD4BAAAAAAAAAAAmwF0BAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-16T15:28:07.918Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "devices.json",
+              "DocumentMoniker": "C:\\Users\\sosau\\source\\repos\\deviceMap\\data\\devices.json",
+              "RelativeDocumentMoniker": "data\\devices.json",
+              "ToolTip": "C:\\Users\\sosau\\source\\repos\\deviceMap\\data\\devices.json",
+              "RelativeToolTip": "data\\devices.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-16T15:58:12.359Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "mapApp.js",
-              "DocumentMoniker": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\js\\mapApp.js",
-              "RelativeDocumentMoniker": "public\\js\\mapApp.js",
-              "ToolTip": "C:\\Users\\Shawn Simpson\\Documents\\GitHub\\deviceMap\\public\\js\\mapApp.js",
-              "RelativeToolTip": "public\\js\\mapApp.js",
-              "ViewState": "AgIAAH0BAAAAAAAAAAAAAJ8BAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-09-16T15:28:07.918Z",
+              "Title": "floors.json",
+              "DocumentMoniker": "C:\\Users\\sosau\\source\\repos\\deviceMap\\data\\floors.json",
+              "RelativeDocumentMoniker": "data\\floors.json",
+              "ToolTip": "C:\\Users\\sosau\\source\\repos\\deviceMap\\data\\floors.json",
+              "RelativeToolTip": "data\\floors.json",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-16T23:12:41.638Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "mapServer.js",
+              "DocumentMoniker": "C:\\Users\\sosau\\source\\repos\\deviceMap\\mapServer.js",
+              "RelativeDocumentMoniker": "mapServer.js",
+              "ToolTip": "C:\\Users\\sosau\\source\\repos\\deviceMap\\mapServer.js",
+              "RelativeToolTip": "mapServer.js",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAE8AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-09-16T15:58:55.199Z"
             }
           ]
         }

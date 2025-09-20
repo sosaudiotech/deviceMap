@@ -50,6 +50,19 @@ function optimisticSetCoords(key, x, y) {
     }
 }
 
+// wait for layout/paint so getCTM()/getBBox() are reliable
+async function afterPaint() {
+    await new Promise(r => requestAnimationFrame(() => r()));
+    await new Promise(r => requestAnimationFrame(() => r()));
+}
+
+// sanity-check: if computed box is tiny/huge vs the artboard, fall back
+function saneBox(box, vb) {
+    if (!box || box.width <= 0 || box.height <= 0) return vb;
+    const ratio = (box.width * box.height) / (vb.width * vb.height);
+    if (ratio < 0.02 || ratio > 1.10) return vb;
+    return box;
+}
 
 function wireControls() {
   floorSelect.addEventListener('change', () => {
@@ -92,49 +105,107 @@ function autoPickFirstFloor() {
 }
 
 async function loadFloorSVG() {
-  const floor = state.floors.find(f => f.id === state.currentFloorId);
-  if (!floor) return;
+    
+    const floor = state.floors.find(f => f.id === state.currentFloorId);
+    if (!floor) return;
 
-  const res = await fetch(floor.svg);
-  const svgText = await res.text();
-  svgHost.innerHTML = svgText;
+    const res = await fetch(floor.svg);
+    const svgText = await res.text();
 
-  const injected = svgHost.querySelector('svg');
-  if (!injected) return;
+    svgHost.innerHTML = svgText;
+    const injected = svgHost.querySelector('svg');
+    state.injected = injected;
 
-  state.injected = injected;  // remember the root SVG element
+    // predictable, responsive scaling on the floor SVG
+    injected.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    injected.removeAttribute('width');
+    injected.removeAttribute('height');
+    markerLayer.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    
+    // read root artboard
+    const vbAttr = injected.getAttribute('viewBox') ||
+        `0 0 ${injected.getAttribute('width')} ${injected.getAttribute('height')}`;
+    const [minX, minY, width, height] = vbAttr.split(/\s+/).map(Number);
+    state.svgViewBox = { minX, minY, width, height };
 
-  const vb = injected.getAttribute('viewBox') ||
-             `0 0 ${injected.getAttribute('width')} ${injected.getAttribute('height')}`;
-  const [minX, minY, width, height] = vb.split(/\s+/).map(Number);
-  state.svgViewBox = { minX, minY, width, height };
-    try {
-        const bbox = injected.getBBox();
-        if (bbox && isFinite(bbox.x) && isFinite(bbox.y) && bbox.width > 0 && bbox.height > 0) {
-            state.contentBox = { minX: bbox.x, minY: bbox.y, width: bbox.width, height: bbox.height };
-        } else {
-            state.contentBox = null;
-        }
-    } catch {
-        state.contentBox = null;
+    // wait for paint, THEN compute content bounds
+    await afterPaint();
+
+    
+    let geom = computeGeometryBBox(injected);
+    if (!geom || geom.width <= 0 || geom.height <= 0) {
+        try {
+            const bb = injected.getBBox();
+            geom = (bb && bb.width > 0 && bb.height > 0)
+                ? { minX: bb.x, minY: bb.y, width: bb.width, height: bb.height }
+                : null;
+        } catch { geom = null; }
     }
-  markerLayer.setAttribute('viewBox', `${minX} ${minY} ${width} ${height}`);
-  markerLayer.setAttribute('preserveAspectRatio', injected.getAttribute('preserveAspectRatio') || 'xMidYMid meet');
-    // After we detect viewBox and contentBox:
-    setViewToBox(getEffectiveBox()); // fit on load or floor change
+    state.contentBox = saneBox(geom, state.svgViewBox);
 
+    // init BOTH layers to the same artboard viewBox
+    injected.setAttribute('viewBox', `${minX} ${minY} ${width} ${height}`);   // 🔹 add this
+    markerLayer.setAttribute('viewBox', `${minX} ${minY} ${width} ${height}`);
+    ensureOverlayScaffold();
+
+    // camera fit (padded effective box); applyView() will set both layers again
+    setViewToBox(padBox(getEffectiveBox(), adaptivePadPct()));
+    logBoxes('after fit');
+
+    render();
 }
+
+
+
+// Robust geometry bounds in SVG coords (ignores <text>, unions transformed shapes)
+function computeGeometryBBox(svgRoot) {
+    const sels = 'path,rect,circle,ellipse,polyline,polygon,line';
+    const nodes = svgRoot.querySelectorAll(sels);
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+    nodes.forEach(node => {
+        try {
+            const bb = node.getBBox();           // local bbox
+            const m = node.getCTM();            // to root coords
+            if (!bb || !m) return;
+
+            // corners in local coords -> transform to root coords
+            const corners = [
+                { x: bb.x, y: bb.y },
+                { x: bb.x + bb.width, y: bb.y },
+                { x: bb.x, y: bb.y + bb.height },
+                { x: bb.x + bb.width, y: bb.y + bb.height },
+            ].map(p => {
+                const pt = svgRoot.createSVGPoint();
+                pt.x = p.x; pt.y = p.y;
+                return pt.matrixTransform(m);
+            });
+
+            corners.forEach(p => {
+                if (Number.isFinite(p.x) && Number.isFinite(p.y)) {
+                    if (p.x < minX) minX = p.x;
+                    if (p.y < minY) minY = p.y;
+                    if (p.x > maxX) maxX = p.x;
+                    if (p.y > maxY) maxY = p.y;
+                }
+            });
+        } catch { }
+    });
+
+    if (!isFinite(minX) || !isFinite(minY) || !isFinite(maxX) || !isFinite(maxY)) return null;
+    return { minX, minY, width: maxX - minX, height: maxY - minY };
+}
+
 function getEffectiveBox() {
     const vb = state.svgViewBox || { minX: 0, minY: 0, width: 100, height: 100 };
     const floor = state.floors.find(f => f.id === state.currentFloorId);
-    if (floor?.box) return floor.box; // manual override from floors.json (optional)
-    const cb = state.contentBox;
-    if (cb && cb.width > 0 && cb.height > 0 && cb.width <= vb.width * 1.01 && cb.height <= vb.height * 1.01) return cb;
-    return vb;
+    if (floor?.box) return floor.box;           // manual override wins
+    return saneBox(state.contentBox, vb);       // geometry if sane, else artboard
 }
 
 function setViewToBox(box) {
     state.view = { x: box.minX, y: box.minY, w: box.width, h: box.height };
+    clampViewToBox(); // ensure inside padded clamp
     applyView();
 }
 
@@ -145,24 +216,7 @@ function applyView() {
     markerLayer.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
 }
 
-function clampViewToBox() {
-    const box = getEffectiveBox();
-    const v = state.view;
-    // clamp zoom extents (10% to 120% of content size)
-    const minW = Math.max(1, box.width * 0.1);
-    const minH = Math.max(1, box.height * 0.1);
-    const maxW = box.width * 1.2;
-    const maxH = box.height * 1.2;
 
-    v.w = Math.max(minW, Math.min(maxW, v.w));
-    v.h = Math.max(minH, Math.min(maxH, v.h));
-
-    // clamp position so view stays within content box
-    const maxX = box.minX + box.width - v.w;
-    const maxY = box.minY + box.height - v.h;
-    v.x = Math.max(box.minX, Math.min(maxX, v.x));
-    v.y = Math.max(box.minY, Math.min(maxY, v.y));
-}
 
 function zoomAt(clientX, clientY, factor) {
     // keep the svg point under cursor stationary while zooming
@@ -174,8 +228,12 @@ function zoomAt(clientX, clientY, factor) {
     const nh = v.h * factor;
 
     state.view = { x: nx, y: ny, w: nw, h: nh };
+
+    //console.log('#floor', state.injected.getBoundingClientRect());
+    //console.log('#overlay', markerLayer.getBoundingClientRect());
     clampViewToBox();
     applyView();
+    //assertAligned('after zoom/pan');
 }
 
 function panBy(dxScreen, dyScreen) {
@@ -187,14 +245,19 @@ function panBy(dxScreen, dyScreen) {
 
     state.view.x -= dx;
     state.view.y -= dy;
+
+    //console.log('#floor', state.injected.getBoundingClientRect());
+    //console.log('#overlay', markerLayer.getBoundingClientRect());
     clampViewToBox();
     applyView();
+    //assertAligned('after zoom/pan');
 }
 
 
 function render() {
   renderMarkers();
-  renderList();
+    renderList();
+    drawDebugBoxes();
 }
 
 function devicesForCurrentFloor() {
@@ -215,42 +278,118 @@ function devicesForCurrentFloor() {
 }
 
 function renderMarkers() {
-  const floorDevs = devicesForCurrentFloor();
-  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-  g.setAttribute('id', 'markers');
-
-  floorDevs.forEach(dev => {
-    const { x = 0.5, y = 0.5 } = dev.coords || {};
-    const { minX, minY, width, height } = state.svgViewBox || { minX:0, minY:0, width:100, height:100 };
+    const markers = ensureOverlayScaffold();   // <-- get persistent group
+    const floorDevs = devicesForCurrentFloor();
     const box = getEffectiveBox();
-    const px = box.minX + x * box.width;
-    const py = box.minY + y * box.height;
 
+    // build fresh nodes
+    const frag = document.createDocumentFragment();
+    floorDevs.forEach(dev => {
+        const { x = 0.5, y = 0.5 } = dev.coords || {};
+        const px = box.minX + x * box.width;
+        const py = box.minY + y * box.height;
+        frag.appendChild(markerNode(dev, px, py));
+    });
 
-    const node = markerNode(dev, px, py);
-    g.appendChild(node);
-  });
-
-  markerLayer.innerHTML = '';
-  markerLayer.appendChild(g);
+    // swap contents without nuking <defs>
+    markers.replaceChildren(frag);
 }
 
+
+function drawDebugBoxes() {
+    // clear previous overlay (so it doesn’t stack)
+    const old = markerLayer.querySelector('#debug-boxes');
+    if (old) old.remove();
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('id', 'debug-boxes');
+
+    const vb = state.svgViewBox;
+    const eb = getEffectiveBox();
+    const pad = adaptivePadPct();
+    const pb = padBox(eb, pad);
+    const v = state.view;
+
+    function rect(box, stroke, dash = '4,3') {
+        const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        r.setAttribute('x', box.minX);
+        r.setAttribute('y', box.minY);
+        r.setAttribute('width', box.width);
+        r.setAttribute('height', box.height);
+        r.setAttribute('fill', 'none');
+        r.setAttribute('stroke', stroke);
+        r.setAttribute('stroke-dasharray', dash);
+        r.setAttribute('stroke-width', '2');
+        return r;
+    }
+
+    if (vb) g.appendChild(rect(vb, '#3aa3ff')); // blue: root viewBox/artboard
+    if (eb) g.appendChild(rect(eb, '#2ecc71')); // green: effective content box
+    if (pb) g.appendChild(rect(pb, '#f1c40f')); // yellow: padded clamp box
+    if (v) g.appendChild(rect({ minX: v.x, minY: v.y, width: v.w, height: v.h }, '#e74c3c', '6,4')); // red: current camera
+
+    // put it on top of markers
+    markerLayer.appendChild(g);
+}
+
+function ensureOverlayScaffold() {
+    // Add defs (icons) once
+    if (!markerLayer.querySelector('#marker-defs')) {
+        markerLayer.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        defs.id = 'marker-defs';
+        defs.innerHTML = `
+          <!-- define icons as <g> so <use> doesn't need width/height -->
+          <g id="icon-display-land">
+            <rect x="-22" y="-6" width="44" height="24" rx="2"/>
+            
+          </g>
+          <g id="icon-display-port">
+            <rect x="0" y="-16" width="24" height="44" rx="2"/>
+            
+          </g>
+        `;
+
+        markerLayer.appendChild(defs);
+    }
+
+    // Ensure a persistent group we can reuse
+    let markers = markerLayer.querySelector('#markers');
+    if (!markers) {
+        markers = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        markers.id = 'markers';
+        markerLayer.appendChild(markers);
+    }
+    return markers;
+}                                 
+
+
+
 function markerNode(dev, px, py) {
-  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-  g.classList.add('marker');
-  g.setAttribute('data-id', dev.id);
-  g.setAttribute('transform', `translate(${px}, ${py})`);
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.classList.add('marker');
+    g.setAttribute('transform', `translate(${px}, ${py})`);
 
-  const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  circle.setAttribute('r', '6');
+    const iconId = dev.orientation === 'portrait' ? '#icon-display-port' : '#icon-display-land';
 
-  const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  label.setAttribute('x', '10');
-  label.setAttribute('y', '4');
-  label.textContent = dev.name || dev.id;
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttribute('href', iconId);
+    use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', iconId);
+    use.setAttribute('transform', 'translate(-12,-12)');             // center 24x24 icon
+    use.setAttribute('vector-effect', 'non-scaling-stroke');          // set as attribute (no VS warning)
+    use.setAttribute('fill', getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#5da9ff');
+    use.setAttribute('opacity', '0.95');
+    use.setAttribute('stroke', 'rgba(255,255,255,0.55)');
+    use.setAttribute('stroke-width', '1.2');
 
-  g.appendChild(circle);
-  g.appendChild(label);
+    g.appendChild(use);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', '16');
+    label.setAttribute('y', '4');
+    label.setAttribute('pointer-events', 'none');
+    label.textContent = dev.name || dev.id;
+    g.appendChild(label);
 
   // Tooltip
   g.addEventListener('pointerenter', () => {
@@ -377,6 +516,46 @@ function connectWS() {
   };
 }
 
+// Add near other helpers
+function padBox(box, pct) {
+    const pw = box.width * pct, ph = box.height * pct;
+    return { minX: box.minX - pw, minY: box.minY - ph, width: box.width + 2 * pw, height: box.height + 2 * ph };
+}
+
+function adaptivePadPct() {
+    const box = getEffectiveBox();
+    const viewW = document.getElementById('map-wrapper').clientWidth || 1;
+    const viewH = document.getElementById('map-wrapper').clientHeight || 1;
+    const viewRatio = viewW / viewH;
+    const boxRatio = box.width / box.height;
+
+    // If the floor is much taller than the viewport (portrait in landscape),
+    // give extra vertical slack so the bottom is easy to reach.
+    if (boxRatio < viewRatio * 0.8) return 0.12;  // 12% pad
+    return 0.04;                                   // default 4% pad
+}
+
+function clampViewToBox() {
+    const base = getEffectiveBox();
+    const box = padBox(base, adaptivePadPct());
+
+    const v = state.view;
+
+    // allow wider zoom range; tiny min so you can zoom way out if needed
+    const minW = Math.max(1, base.width * 0.02);
+    const minH = Math.max(1, base.height * 0.02);
+    const maxW = base.width * 3.0;
+    const maxH = base.height * 3.0;
+
+    v.w = Math.max(minW, Math.min(maxW, v.w));
+    v.h = Math.max(minH, Math.min(maxH, v.h));
+
+    const maxX = box.minX + box.width - v.w;
+    const maxY = box.minY + box.height - v.h;
+    v.x = Math.max(box.minX, Math.min(maxX, v.x));
+    v.y = Math.max(box.minY, Math.min(maxY, v.y));
+}
+
 
 
 const fitBtn = qs('#fit-btn');
@@ -385,15 +564,21 @@ const zoomOutBtn = qs('#zoom-out-btn');
 const mapWrapper = qs('#map-wrapper');
 
 function wireZoomPanControls() {
-    fitBtn?.addEventListener('click', () => setViewToBox(getEffectiveBox()));
+    fitBtn?.addEventListener('click', () =>
+        setViewToBox(padBox(getEffectiveBox(), adaptivePadPct()))
+    );
+    assertAligned('after fit');
+
     zoomInBtn?.addEventListener('click', () => zoomAt(mapWrapper.clientWidth / 2, mapWrapper.clientHeight / 2, 0.9));
     zoomOutBtn?.addEventListener('click', () => zoomAt(mapWrapper.clientWidth / 2, mapWrapper.clientHeight / 2, 1.1));
 
-    // Scroll to zoom (around mouse position)
+    let lastWheel = 0;
     mapWrapper.addEventListener('wheel', (e) => {
         e.preventDefault();
-        const factor = e.deltaY < 0 ? 0.9 : 1.1;
-        zoomAt(e.clientX, e.clientY, factor);
+        const now = performance.now();
+        if (now - lastWheel < 30) return;
+        lastWheel = now;
+        zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 0.9 : 1.1);
     }, { passive: false });
 
     // Hold Space and drag to pan
@@ -404,11 +589,14 @@ function wireZoomPanControls() {
     window.addEventListener('keydown', (e) => { if (e.code === 'Space') spaceDown = true; });
     window.addEventListener('keyup', (e) => { if (e.code === 'Space') spaceDown = false; });
 
+ 
+
     mapWrapper.addEventListener('pointerdown', (e) => {
         // begin pan only when Space is held (so marker dragging still works)
         if (!spaceDown) return;
         isPanning = true;
         lastX = e.clientX; lastY = e.clientY;
+        mapWrapper.classList.add('panning');
         mapWrapper.setPointerCapture(e.pointerId);
     });
 
@@ -423,6 +611,40 @@ function wireZoomPanControls() {
     mapWrapper.addEventListener('pointerup', (e) => {
         if (!isPanning) return;
         isPanning = false;
+        mapWrapper.classList.remove('panning');
         mapWrapper.releasePointerCapture(e.pointerId);
     });
 }
+
+function logBoxes(tag = '') {
+    const vb = state.svgViewBox;
+    const eb = getEffectiveBox();
+    const pad = adaptivePadPct();
+    const pb = padBox(eb, pad);
+    const v = state.view;
+    console.table({
+        tag,
+        viewBox: vb && `${vb.minX},${vb.minY} ${vb.width}×${vb.height}`,
+        effective: eb && `${eb.minX},${eb.minY} ${eb.width}×${eb.height}`,
+        padded: pb && `${pb.minX},${pb.minY} ${pb.width}×${pb.height} (pad ${Math.round(pad * 100)}%)`,
+        camera: v && `${v.x},${v.y} ${v.w}×${v.h}`
+    });
+}
+
+function assertAligned(tag = '') {
+    const A = state.injected?.getScreenCTM();
+    const B = markerLayer.getScreenCTM();
+    if (!A || !B) return;
+
+    const ok = (a, b) => Math.abs(a - b) < 0.5; // half pixel tolerance
+    const same =
+        ok(A.a, B.a) && ok(A.b, B.b) && ok(A.c, B.c) &&
+        ok(A.d, B.d) && ok(A.e, B.e) && ok(A.f, B.f);
+
+    if (!same) {
+        console.warn('✗ VIEW MISMATCH', tag, { floor: A, overlay: B });
+    } else {
+        console.log('✓ view in sync', tag);
+    }
+}
+

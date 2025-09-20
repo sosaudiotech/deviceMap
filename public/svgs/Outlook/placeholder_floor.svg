@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1728 2592" preserveAspectRatio="xMidYMid meet"
+     xmlns="http://www.w3.org/2000/svg">
+  <!-- All geometry inside one group; no transforms anywhere -->
+  <g id="content" vector-effect="non-scaling-stroke" stroke="#9aa3af" stroke-width="2">
+
+    <!-- Invisible full-canvas bounds so contentBox == viewBox -->
+    <rect id="bounds" x="0" y="0" width="1728" height="2592" fill="none" stroke="none"/>
+
+    <!-- Outer walls -->
+    <rect x="48" y="48" width="1632" height="2496" fill="none"/>
+
+    <!-- Central corridor -->
+    <rect x="336" y="288" width="1056" height="2016" fill="#0f172a" opacity="0.25"/>
+
+    <!-- Rooms (left side) -->
+    <rect x="96"  y="288"  width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="96"  y="696"  width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="96"  y="1104" width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="96"  y="1512" width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="96"  y="1920" width="216" height="360" fill="#0b1220" opacity="0.35"/>
+
+    <!-- Rooms (right side) -->
+    <rect x="1416" y="288"  width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="1416" y="696"  width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="1416" y="1104" width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="1416" y="1512" width="216" height="360" fill="#0b1220" opacity="0.35"/>
+    <rect x="1416" y="1920" width="216" height="360" fill="#0b1220" opacity="0.35"/>
+
+    <!-- Cross halls -->
+    <rect x="336" y="720"  width="1056" height="72"  fill="#0f172a" opacity="0.25"/>
+    <rect x="336" y="1476" width="1056" height="72"  fill="#0f172a" opacity="0.25"/>
+
+    <!-- A couple of doors (just for visual variety) -->
+    <line x1="336" y1="576" x2="384" y2="576"/>
+    <line x1="1392" y1="576" x2="1440" y2="576"/>
+    <line x1="336" y1="1860" x2="384" y2="1860"/>
+    <line x1="1392" y1="1860" x2="1440" y2="1860"/>
+
+  </g>
+</svg>
